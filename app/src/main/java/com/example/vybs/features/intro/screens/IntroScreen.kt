@@ -28,10 +28,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.vybs.features.intro.viewModels.IntroScreenViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 
 @Composable
-fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel = viewModel()) {
+fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel = hiltViewModel()) {
 
     var age: Int? by remember { mutableStateOf(null) }
 
@@ -59,7 +59,6 @@ fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel =
 
             Spacer(modifier = Modifier.height(50.dp))
 
-
             TextField(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                 value = age?.toString() ?: "",
@@ -79,28 +78,11 @@ fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel =
             Spacer(modifier = Modifier.height(10.dp))
 
             Button(
-                onClick = {viewModel.grantAccess() },
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
-                        shape = RoundedCornerShape(8.dp)
-
-            ) {
-                Text("Grant Access to installed apps")
-            }
-            HorizontalDivider(
-                color = Color.LightGray,
-                thickness = 1.dp,
-                modifier = Modifier.padding(horizontal = 18.dp, vertical = 20.dp)
-            )
-
-            Button(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                 onClick = {viewModel.next(age!!) },
                 shape = RoundedCornerShape(8.dp),
                 enabled = age!=null
-            ) {
-                Text("Next")
-            }
-
+            ) { Text("Next") }
         }
 
     }

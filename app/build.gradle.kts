@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("kotlin-kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -9,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.vybs"
-        minSdk = 34
+        minSdk = 33
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -50,14 +52,15 @@ android {
 }
 
 dependencies {
-    val lifecycle_version = "2.8.4"
-
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation("com.google.dagger:hilt-android:2.52")
+    kapt("com.google.dagger:hilt-android-compiler:2.52")
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
@@ -69,4 +72,8 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+}
+
+kapt {
+    correctErrorTypes = true
 }
