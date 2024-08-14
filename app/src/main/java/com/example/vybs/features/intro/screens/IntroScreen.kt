@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -79,7 +78,7 @@ fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel =
 
             Button(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
-                onClick = {viewModel.next(age!!) },
+                onClick = {age?.let { viewModel.next(it)} },
                 shape = RoundedCornerShape(8.dp),
                 enabled = age!=null
             ) { Text("Next") }
