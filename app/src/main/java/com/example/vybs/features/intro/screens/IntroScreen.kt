@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.Divider
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -34,7 +33,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 @Composable
 fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel = viewModel()) {
 
-    var number: Int? by remember { mutableStateOf(null) }
+    var age: Int? by remember { mutableStateOf(null) }
 
     Scaffold(modifier = modifier) { innerPadding ->
         Column(
@@ -62,18 +61,17 @@ fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel =
 
 
             TextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = number?.toString() ?: "",
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
+                value = age?.toString() ?: "",
                 onValueChange = {
-                    number = it.toIntOrNull() // Convert string to Int?
+                    age = it.toIntOrNull()
                 },
                 label = { Text("Enter your age") },
                 keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number),
                 singleLine = true,
                 colors = TextFieldDefaults.colors(
-                    focusedIndicatorColor = Color.Transparent, // Remove focused underline
-                    unfocusedIndicatorColor = Color.Transparent, // Remove unfocused underline
-                    cursorColor = Color.Blue // Set cursor color
+                    focusedIndicatorColor = Color.Transparent,
+                    unfocusedIndicatorColor = Color.Transparent,
                 ),
                 shape = RoundedCornerShape(8.dp)
             )
@@ -82,7 +80,7 @@ fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel =
 
             Button(
                 onClick = {viewModel.grantAccess() },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
                         shape = RoundedCornerShape(8.dp)
 
             ) {
@@ -91,14 +89,14 @@ fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel =
             HorizontalDivider(
                 color = Color.LightGray,
                 thickness = 1.dp,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 20.dp) // Add padding around the divider
+                modifier = Modifier.padding(horizontal = 18.dp, vertical = 20.dp)
             )
 
             Button(
                 modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp),
-                onClick = {viewModel.grantAccess() },
-                shape = RoundedCornerShape(8.dp)
-
+                onClick = {viewModel.next(age!!) },
+                shape = RoundedCornerShape(8.dp),
+                enabled = age!=null
             ) {
                 Text("Next")
             }
