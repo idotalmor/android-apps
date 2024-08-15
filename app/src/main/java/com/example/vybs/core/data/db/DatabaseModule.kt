@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.example.vybs.core.data.db.appEntity.AppEntityDao
 import com.example.vybs.core.data.db.appEntity.AppEntityRepository
+import com.example.vybs.core.data.db.userEntity.UserEntityDao
+import com.example.vybs.core.data.db.userEntity.UserEntityRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,13 +29,25 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideAppDao(db: AppDatabase): AppEntityDao {
+    fun provideAppEntityDao(db: AppDatabase): AppEntityDao {
         return db.appEntityDao()
     }
 
     @Singleton
     @Provides
-    fun provideAppRepository(appEntityDao: AppEntityDao): AppEntityRepository {
+    fun provideAppEntityRepository(appEntityDao: AppEntityDao): AppEntityRepository {
         return AppEntityRepository(appEntityDao)
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserEntityDao(db: AppDatabase): UserEntityDao {
+        return db.userEntityDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideUserEntityRepository(userEntityDao: UserEntityDao): UserEntityRepository {
+        return UserEntityRepository(userEntityDao)
     }
 }
