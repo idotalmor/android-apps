@@ -7,8 +7,10 @@ import androidx.room.PrimaryKey
 data class AppEntity(
     @PrimaryKey val packageName: String,
     val name: String,
-    val imageUrl: String,
+    val imageUrl: String?,
     val isSuggested: Boolean,
     val category: String,
-    val progressRate: Float
+    val progressRate: Float,
+    val icon: ByteArray?,
+    val installed: Boolean,
 )

@@ -17,6 +17,7 @@ class IntroScreenViewModel @Inject constructor(
             try {
                 getAndSaveAppsUseCase.execute()
             } catch (e: Exception) {
+                //TODO: note: not sure how product-wise I need to handle this error
                 println("Error saving apps: ${e.message}")
             }
         }
