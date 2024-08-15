@@ -26,6 +26,7 @@ import com.example.vybs.features.appList.viewModels.AppListViewModel
 import com.example.vybs.core.data.db.appEntity.AppEntity
 import androidx.compose.ui.viewinterop.AndroidView
 import com.example.vybs.core.data.db.appEntity.mockAppEntity1
+import com.example.vybs.features.appList.components.AppListTile
 
 @Composable
 fun AppListScreen(viewModel: AppListViewModel = hiltViewModel()) {
@@ -39,74 +40,12 @@ fun AppListScreen(viewModel: AppListViewModel = hiltViewModel()) {
                 .padding(horizontal = 16.dp)
         ) {
             items(apps) { app ->
-                AppListItem(app = app)
+                AppListTile(app = app)
             }
         }
     }
 
 }
 
-@Composable
-fun AppListItem(app: AppEntity) {
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-    ) {
-
-        if (app.imageUrl != null) {
-            AsyncImage(
-                model = app.imageUrl,
-                contentDescription = app.name,
-                modifier = Modifier.size(64.dp),
-                contentScale = ContentScale.Crop
-            )
-        } else {
-            app.icon?.let {
-                AndroidView(
-                    modifier = Modifier.size(64.dp),
-                    factory = { ctx ->
-                        ImageView(ctx).apply {
-                            setImageDrawable(it.toDrawable(ctx))
-                        }
-                    }
-                )
-            } ?: run {
-                Box(
-                    modifier = Modifier
-                        .size(64.dp)
-                        .background(Color.Gray)
-                )
-            }
-        }
-
-        Spacer(modifier = Modifier.width(16.dp))
-
-        Column {
-            Text(text = app.name, fontSize = 20.sp, fontWeight = FontWeight.Bold)
-            Text(text = app.category, fontSize = 14.sp, color = Color.Gray)
-            Spacer(modifier = Modifier.height(4.dp))
-
-            Row {
-                Spacer(modifier = Modifier.weight(1f))
-
-                if (app.installed) {
-                    Text(text = "installed")
-                }
-            }
-        }
-
-    }
-}
-
-@Preview
-@Composable
-fun PreviewAppListItem(){
-    AppListItem(mockAppEntity1)
-}
 
 
-fun ByteArray.toDrawable(context: Context): Drawable {
-    val bitmap = BitmapFactory.decodeByteArray(this, 0, this.size)
-    return BitmapDrawable(context.resources, bitmap)
-}
