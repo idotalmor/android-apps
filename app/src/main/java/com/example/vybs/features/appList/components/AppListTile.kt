@@ -2,6 +2,7 @@ package com.example.vybs.features.appList.components
 
 import android.widget.ImageView
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -27,11 +29,12 @@ import com.example.vybs.core.data.db.appEntity.mockAppEntity1
 import com.example.vybs.core.usecase.toDrawable
 
 @Composable
-fun AppListTile(app: AppEntity) {
+fun AppListTile(app: AppEntity,onAppClicked: (AppEntity) -> Unit) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp)
+            .clickable { onAppClicked(app) }
+            .padding(vertical = 8.dp, horizontal = 16.dp)
     ) {
 
         if (app.imageUrl != null) {
@@ -67,7 +70,9 @@ fun AppListTile(app: AppEntity) {
             Text(text = app.category, fontSize = 14.sp, color = Color.Gray)
             Spacer(modifier = Modifier.height(4.dp))
 
-            Row {
+            Row(verticalAlignment = Alignment.CenterVertically) {
+                StarRating(rating = app.progressRate)
+
                 Spacer(modifier = Modifier.weight(1f))
 
                 if (app.installed) {
@@ -82,5 +87,5 @@ fun AppListTile(app: AppEntity) {
 @Preview
 @Composable
 fun PreviewAppListItem(){
-    AppListTile(mockAppEntity1)
+    AppListTile(mockAppEntity1, onAppClicked = {})
 }
