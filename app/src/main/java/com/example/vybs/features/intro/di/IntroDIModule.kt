@@ -2,10 +2,12 @@ package com.example.vybs.features.intro.di
 
 import android.content.Context
 import android.content.pm.PackageManager
+import com.example.vybs.core.data.db.userEntity.UserEntityRepository
 import com.example.vybs.core.usecase.DrawableToByteArrayUseCase
 import com.example.vybs.features.intro.mapper.MapApplicationInfoToAppEntityUseCase
 import com.example.vybs.features.intro.mapper.MapApplicationsToEntitiesUseCase
 import com.example.vybs.features.intro.usecase.GetInstalledAppsUseCase
+import com.example.vybs.features.intro.usecase.SaveUserUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,4 +42,14 @@ object IntroDIModule {
     fun providerMapApplicationsToEntitiesUseCase(mapApplicationInfoToAppEntityUseCase: MapApplicationInfoToAppEntityUseCase): MapApplicationsToEntitiesUseCase {
         return MapApplicationsToEntitiesUseCase(mapApplicationInfoToAppEntityUseCase)
     }
+
+    @Provides
+    @Singleton
+    fun providerSaveUserUseCase(userEntityRepository: UserEntityRepository): SaveUserUseCase {
+        return SaveUserUseCase(userEntityRepository)
+    }
+
+
+
+
 }
