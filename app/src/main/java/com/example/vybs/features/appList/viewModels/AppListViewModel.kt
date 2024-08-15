@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.vybs.core.data.db.appEntity.AppEntityRepository
 import com.example.vybs.core.data.db.appEntity.AppEntity
+import com.example.vybs.core.data.db.appEntity.mockAppEntityList
 import com.example.vybs.features.appList.usecase.OpenAppIntentUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,7 +23,7 @@ class AppListViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            _apps.value = appEntityRepository.getAllApps()
+            _apps.value = mockAppEntityList+ appEntityRepository.getAllApps()
         }
     }
 

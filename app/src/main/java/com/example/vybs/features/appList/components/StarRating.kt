@@ -20,7 +20,7 @@ fun StarRating(rating: Float) {
             Icon(
                 imageVector = icon,
                 contentDescription = null,
-                tint = if (i <= rating) Color.Yellow else Color.Gray,
+                tint = if (i <= rating) Color.Black else Color.Gray,
                 modifier = Modifier.size(16.dp)
             )
         }
