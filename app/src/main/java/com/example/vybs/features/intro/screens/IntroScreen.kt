@@ -13,6 +13,8 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -28,11 +30,23 @@ import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import com.example.vybs.features.intro.viewModels.IntroScreenViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 
 @Composable
-fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel = hiltViewModel()) {
+fun IntroScreen(modifier: Modifier = Modifier,
+                navController: NavController,
+                viewModel: IntroScreenViewModel = hiltViewModel()) {
 
     var age: Int? by remember { mutableStateOf(null) }
+
+    val navigateToNextScreen by viewModel.navigateToNextScreen.collectAsState()
+
+    LaunchedEffect(navigateToNextScreen) {
+        if (navigateToNextScreen) {
+            navController.navigate("next_screen_route")
+        }
+    }
 
     Scaffold(modifier = modifier) { innerPadding ->
         Column(
@@ -90,5 +104,5 @@ fun IntroScreen(modifier: Modifier = Modifier, viewModel: IntroScreenViewModel =
 @Preview
 @Composable
 fun PreviewIntroScreen(){
-    IntroScreen()
+    IntroScreen(navController = rememberNavController())
 }
