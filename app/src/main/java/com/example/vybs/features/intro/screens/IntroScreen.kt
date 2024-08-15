@@ -32,6 +32,7 @@ import com.example.vybs.features.intro.viewModels.IntroScreenViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.vybs.core.navigation.NavRoutes
 
 @Composable
 fun IntroScreen(modifier: Modifier = Modifier,
@@ -44,7 +45,7 @@ fun IntroScreen(modifier: Modifier = Modifier,
 
     LaunchedEffect(navigateToNextScreen) {
         if (navigateToNextScreen) {
-            navController.navigate("next_screen_route")
+            navController.navigate(NavRoutes.AppListScreen.route)
         }
     }
 

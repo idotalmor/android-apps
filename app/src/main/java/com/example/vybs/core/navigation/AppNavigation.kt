@@ -8,8 +8,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.NavHostController
-import androidx.compose.material3.Text
 import com.example.vybs.core.data.db.userEntity.UserEntityRepository
+import com.example.vybs.features.appList.screens.AppListScreen
 import com.example.vybs.features.intro.screens.IntroScreen
 import kotlinx.coroutines.launch
 
@@ -25,7 +25,7 @@ fun AppNavigation(navController: NavHostController, userEntityRepository: UserEn
         scope.launch {
             val user = userEntityRepository.getUser()
             startDestination.value = if (user != null) {
-                NavRoutes.NextScreen.route
+                NavRoutes.AppListScreen.route
             } else {
                 NavRoutes.IntroScreen.route
             }
@@ -38,8 +38,8 @@ fun AppNavigation(navController: NavHostController, userEntityRepository: UserEn
             composable(NavRoutes.IntroScreen.route) {
                 IntroScreen(navController = navController)
             }
-            composable(NavRoutes.NextScreen.route) {
-                Text("This is the next screen")
+            composable(NavRoutes.AppListScreen.route) {
+                AppListScreen()
             }
         }
     }
@@ -48,5 +48,5 @@ fun AppNavigation(navController: NavHostController, userEntityRepository: UserEn
 
 enum class NavRoutes(val route: String) {
     IntroScreen("intro_screen"),
-    NextScreen("next_screen_route")
+    AppListScreen("app_list_screen")
 }
